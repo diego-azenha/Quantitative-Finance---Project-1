@@ -14,9 +14,7 @@ import matplotlib.pyplot as plt
 
 import os
 
-# make sure results directory exists
 os.makedirs("results", exist_ok=True)
-
 
 ANNUAL_RF = 0.0492
 TRADING_DAYS = 252
@@ -64,7 +62,7 @@ for i in range(len(last_td) - 1):
     if month_rets.empty:
         continue
 
-    # targets at first TD of m+1 using data from 'start'
+    # targets at first Trading Day of m+1 using data from 'start'
     ew_target = pd.Series(1.0/N, index=cols)
 
     mcaps = caps.loc[start].reindex(cols)
@@ -109,7 +107,7 @@ vw_weights = pd.DataFrame(vw_w_hist)
 ew_turnover = float(np.mean(ew_turns)) if ew_turns else np.nan
 vw_turnover = float(np.mean(vw_turns)) if vw_turns else np.nan
 
-# ---------- benchmark ----------
+# ---------- Benchmark - S&P500 ----------
 spx = (
     yf.download("^GSPC",
                 start=str(rets.index.min().date()),
@@ -127,7 +125,7 @@ vw_ret = vw_ret.reindex(idx)
 spx    = spx.reindex(idx)
 rf_daily = pd.Series(ANNUAL_RF/TRADING_DAYS, index=idx, name="RF")
 
-# ---------- stats helpers (robust against Series/DataFrame) ----------
+# ---------------- Metrics ------------------
 
 TRADING_DAYS = 252
 ANNUAL_RF = 0.0492
@@ -168,7 +166,7 @@ def info_ratio(x, bench) -> float:
     return float(mu / sd) if sd > 0 else np.nan
 
 
-# ---------- build results table (pure floats) ----------
+# ---------- Results table ----------
 rows = [
     ("Equally Weighted", ann_ret(ew_ret), ann_vol(ew_ret), sharpe(ew_ret), info_ratio(ew_ret, spx), ew_turnover),
     ("Value Weighted",   ann_ret(vw_ret), ann_vol(vw_ret), sharpe(vw_ret), info_ratio(vw_ret, spx), vw_turnover),
@@ -192,7 +190,7 @@ if pd.notnull(ew_turnover) and pd.notnull(vw_turnover):
 else:
     print("Insufficient data to compare.")
 
-# ---------- curves ready for plotting (in a separate file) ----------
+# ---------- Curves ready for plotting ----------
 ew_curve  = (1 + ew_ret).cumprod(); ew_curve  /= ew_curve.iloc[0]
 vw_curve  = (1 + vw_ret).cumprod(); vw_curve  /= vw_curve.iloc[0]
 spx_curve = (1 + spx).cumprod();   spx_curve /= spx_curve.iloc[0]

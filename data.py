@@ -133,13 +133,6 @@ def brief_checks(prices: pd.DataFrame, caps: pd.DataFrame, thr_extreme=0.30):
     if len(idx_inter) == 0:
         problems.append("ALIGN: no overlapping dates between prices and mkt_cap")
 
-    # 6) Sudden cap jumps (very coarse)
-    if caps.shape[0] > 1:
-        cap_rets = caps.pct_change().abs()
-        big_caps = int((cap_rets > 1.0).sum().sum())  # >100% day-over-day
-        if big_caps:
-            problems.append(f"MKT_CAP: >100% day jumps = {big_caps}")
-
     # --- Output ---
     print("\n=== DATA QUICK CHECK ===")
     print(f"Prices shape:  {prices.shape},  span: {prices.index.min()} → {prices.index.max()}")

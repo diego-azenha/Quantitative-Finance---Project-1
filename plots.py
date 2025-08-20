@@ -1,9 +1,3 @@
-# plots.py — Economist-style plotting
-# 1) Cumulative returns (EW, VW, SPX, RF)
-# 2) Portfolio weights (EW & VW) stacked areas (analogous palettes + labels)
-# 3) Diversification dispersion: mean ± 1σ (shaded band)
-# 4) Combined dashboard (returns left; EW/VW weights right)
-
 from typing import Optional
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -273,7 +267,7 @@ def show_combined_dashboard(
     ew_w = ew_weights.reindex(idx)
     vw_w = vw_weights.reindex(idx)
 
-    # Colors for stacks (analogous, elegant)
+    # Colors for stacks 
     ew_cols = _analogous_palette(ew_w.shape[1], base_hue_deg=210)
     vw_cols = _analogous_palette(vw_w.shape[1], base_hue_deg=18)
 
@@ -308,7 +302,7 @@ def show_combined_dashboard(
     # layout: reserve bottom space for source note
     fig.tight_layout(rect=[0, 0.06, 1, 1])   # leave ~6% at the bottom
 
-    # Data sources footnote (Economist-style), inside figure coords
+    # Data sources footnote
     fig.text(
         0.01, 0.02,
         "Sources: Dataset, Yahoo Finance, Risk-free = 4.92% (30Y T-Bill)",
