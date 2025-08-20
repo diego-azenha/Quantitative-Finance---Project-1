@@ -43,7 +43,7 @@ last_td = (
       .index
 )
 
-# ---------- simulate EW & VW (half-open window (start, end]) ----------
+# ---------- simulate EW & VW ----------
 ew_daily, vw_daily = [], []
 ew_w_hist, vw_w_hist = [], []
 ew_turns, vw_turns = [], []
