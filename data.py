@@ -20,7 +20,7 @@ print("BASE ORIGINAL CONVERTIDA PARA PARQUET")
 print(stock_prices.head(5))
 print(mkt_cap.head(5))
 
-#%%--------------------------------------------------------------------------------------
+#%%--------------------------------------------------------------------
 
 def clean_dataframe(df):
     def shorten(col: str) -> str:
