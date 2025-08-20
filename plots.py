@@ -6,7 +6,7 @@ import matplotlib as mpl
 import numpy as np
 import colorsys
 
-# ------------------------- Aesthetics (Economist-inspired) -------------------------
+
 ECON = {
     "EW":  "#006BA4",  # deep blue
     "VW":  "#D64937",  # economist red
